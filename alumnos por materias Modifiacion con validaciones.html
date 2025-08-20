@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Estudiantes</title>
+</head>
+<body>
+
+    <h1>Validar Cantidad de Estudiantes por Materia</h1>
+
+    <div>
+        <label for="materia1">Cantidad de estudiantes en Materia 1:</label>
+        <input type="number" id="materia1">
+    </div>
+
+    <div>
+        <label for="materia2">Cantidad de estudiantes en Materia 2:</label>
+        <input type="number" id="materia2">
+    </div>
+    
+    <br>
+    <button onclick="validar()">Validar</button>
+
+    <p id="mensaje"></p>
+
+    <script>
+    function validar() {
+        const input1 = document.getElementById('materia1');
+        const input2 = document.getElementById('materia2');
+        const estudiantesMateria1 = parseInt(input1.value);
+        const estudiantesMateria2 = parseInt(input2.value);
+        const mensajeElemento = document.getElementById('mensaje');
+
+        // Validaciones de segundo nivel
+        if (estudiantesMateria1 < 0 || estudiantesMateria2 < 0) {
+            mensajeElemento.textContent = "no puedo tener alumnos negativos.";
+            return;
+        }
+
+        if (estudiantesMateria1 > 100 || estudiantesMateria2 > 100) {
+            mensajeElemento.textContent = "no puedo pasarme de ams de 100 alumnos.";
+            return;
+        }
+
+        if (!Number.isInteger(estudiantesMateria1) || !Number.isInteger(estudiantesMateria2)) {
+            mensajeElemento.textContent = "el numero ingresado no es un valor entero.";
+            return;
+        }
+
+        // Lógica de comparación
+        if (estudiantesMateria1 > estudiantesMateria2) {
+            mensajeElemento.textContent = "La Materia 1 tiene más estudiantes.";
+        } else if (estudiantesMateria2 > estudiantesMateria1) {
+            mensajeElemento.textContent = "La Materia 2 tiene más estudiantes.";
+        } else {
+            mensajeElemento.textContent = "Ambas materias tienen la misma cantidad de estudiantes.";
+        }
+    }
+</script>
+
+</body>
+</html>
