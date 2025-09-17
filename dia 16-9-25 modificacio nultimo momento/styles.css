@@ -1,0 +1,126 @@
+/* -- Definición de nuestra paleta de colores usando variables CSS -- */
+:root {
+    --primary-bg: #1a1a2e;      /* Un azul oscuro, casi negro, para el fondo */
+    --secondary-bg: #16213e;    /* Un azul marino para los contenedores */
+    --accent-blue: #105cb9;     /* Un azul más claro para bordes y detalles */
+    --accent-violet: #7d47cf;   /* Violeta para botones y elementos interactivos */
+    --text-color: #ec3d5a;      /* Un color rosado/rojo claro para los títulos */
+    --text-prose-color: #dcdcdc; /* Un gris claro para el texto normal */
+    --delete-red: #e94560;       /* Rojo para el botón de eliminar */
+}
+
+/* -- Estilos generales y reseteo básico -- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-prose-color);
+    margin: 0;
+    padding: 20px;
+}
+
+/* -- Estilos para los títulos -- */
+h1, h2 {
+    color: var(--text-color);
+    text-align: center;
+}
+
+/* -- Contenedor principal para centrar el contenido -- */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    display: grid;
+    gap: 30px; /* Espacio entre el formulario y la lista */
+}
+
+/* -- Estilos para las secciones (formulario y lista) -- */
+section {
+    background-color: var(--secondary-bg);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid var(--accent-blue);
+}
+
+/* -- Estilos específicos del formulario -- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre los elementos del formulario */
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"], textarea {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid var(--accent-blue);
+    background-color: var(--primary-bg);
+    color: var(--text-prose-color);
+    border-radius: 4px;
+}
+
+/* -- Estilo del botón principal del formulario -- */
+button[type="submit"] {
+    padding: 12px;
+    border: none;
+    background-color: var(--accent-violet);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #6d44a4; /* Un violeta un poco más claro al pasar el mouse */
+}
+
+/* -- Estilos para los conceptos que se mostrarán en la lista -- */
+/* (Por ahora definimos la clase, luego la usaremos desde el servidor) */
+.concept-item {
+    background-color: var(--accent-blue);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.concept-item div {
+    flex-grow: 1;
+}
+
+.concept-item h3 {
+    margin: 0 0 5px 0;
+    color: var(--text-color);
+}
+
+.concept-item p {
+    margin: 0;
+    color: var(--text-prose-color);
+}
+
+/* -- Estilo específico para el botón de eliminar -- */
+.delete-btn {
+    padding: 8px 12px;
+    border: none;
+    background-color: var(--delete-red);
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 15px;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #f06a8A; /* Un rojo más claro al pasar el mouse */
+}
+
+.toolbar {
+    margin-bottom: 15px;
+    text-align: right;
+}
