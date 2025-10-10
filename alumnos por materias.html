@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Estudiantes</title>
+</head>
+<body>
+
+    <h1>Validar Cantidad de Estudiantes por Materia</h1>
+
+    <div>
+        <label for="materia1">Cantidad de estudiantes en Materia 1:</label>
+        <input type="number" id="materia1">
+    </div>
+
+    <div>
+        <label for="materia2">Cantidad de estudiantes en Materia 2:</label>
+        <input type="number" id="materia2">
+    </div>
+    
+    <br>
+    <button onclick="validar()">Validar</button>
+
+    <p id="mensaje"></p>
+
+    <script>
+        function validar() {
+            const estudiantesMateria1 = parseInt(document.getElementById('materia1').value);
+            const estudiantesMateria2 = parseInt(document.getElementById('materia2').value);
+            const mensajeElemento = document.getElementById('mensaje');
+
+            if (estudiantesMateria1 > estudiantesMateria2) {
+                mensajeElemento.textContent = "La Materia 1 tiene más estudiantes.";
+            } else if (estudiantesMateria2 > estudiantesMateria1) {
+                mensajeElemento.textContent = "La Materia 2 tiene más estudiantes.";
+            } else if (estudiantesMateria1 === estudiantesMateria2) {
+                mensajeElemento.textContent = "Ambas materias tienen la misma cantidad de estudiantes.";
+            } else {
+                mensajeElemento.textContent = "Por favor, ingresa un número válido en ambos campos.";
+            }
+        }
+    </script>
+
+</body>
+</html>
