@@ -1,22 +1,16 @@
 // database/connection.js
+
 const { Sequelize } = require('sequelize');
 
-// Reemplaza 'nombre_de_tu_db', 'tu_usuario', y 'tu_contraseña' con tus credenciales.
-const sequelize = new Sequelize('conceptos_db', 'root', '', {
+// --- ⚠️ CONFIGURA ESTO ---
+const DB_NAME = 'tp2_db';      // El nombre que pusiste en phpMyAdmin
+const DB_USER = 'root';        // Tu usuario de MySQL (casi siempre 'root')
+const DB_PASS = '';            // Tu contraseña de MySQL (casi siempre vacía)
+// -------------------------
+
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
   host: 'localhost',
   dialect: 'mysql'
 });
-
-// Función para probar la conexión
-async function testConnection() {
-  try {
-    await sequelize.authenticate();
-    console.log('✅ Conexión con la base de datos establecida correctamente.');
-  } catch (error) {
-    console.error('❌ No se pudo conectar a la base de datos:', error);
-  }
-}
-
-testConnection();
 
 module.exports = sequelize;

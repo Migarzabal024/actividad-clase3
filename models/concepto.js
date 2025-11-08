@@ -1,28 +1,28 @@
 // models/concepto.js
-const { DataTypes } = require('sequelize');
+
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../database/connection');
 
-const Concepto = sequelize.define('Concepto', {
-  // El ID se crea automáticamente por Sequelize
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  // Nombre del concepto
+class Concepto extends Model {}
+
+Concepto.init({
+  // 'id' es creado automáticamente por Sequelize
+  
   nombre: {
     type: DataTypes.STRING,
-    allowNull: false // Este campo es obligatorio
+    allowNull: false
   },
-  // Descripción del concepto
   descripcion: {
-    type: DataTypes.TEXT,
-    allowNull: false // Este campo también es obligatorio
+    type: DataTypes.TEXT, // Usamos TEXT para descripciones más largas
+    allowNull: true
   }
+  // 'createdAt' y 'updatedAt' son creados automáticamente
+  // Tu vista HTML usa 'fechaCreacion', pero Sequelize usa 'createdAt'.
+  // Vamos a cambiarlo en la vista HTML para que coincida.
 }, {
-  // Opciones adicionales del modelo
-  tableName: 'conceptos', // Nombre explícito de la tabla
-  timestamps: false // No queremos las columnas createdAt y updatedAt
+  sequelize,
+  modelName: 'Concepto'
+  // El nombre de la tabla en MySQL será 'Conceptos' (plural)
 });
 
 module.exports = Concepto;
