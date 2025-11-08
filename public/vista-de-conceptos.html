@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Conceptos - TP Programación 2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Lista de Conceptos</h1>
+            <p>Taller de Programación 2 - Franco Borsani</p>
+        </header>
+
+        <nav>
+            <a href="index.html">Agregar Concepto</a>
+            <a href="view.html" class="active">Ver Conceptos</a>
+        </nav>
+
+        <main>
+            <section class="list-section">
+                <div class="list-header">
+                    <h2>Conceptos Guardados</h2>
+                    <button id="btnEliminarTodos" class="btn-danger">🗑️ Eliminar Todos</button>
+                </div>
+
+                <div id="listaConceptos" class="conceptos-grid">
+                    <p class="loading">Cargando conceptos...</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Trabajo Práctico N°1 - 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        const listaDiv = document.getElementById('listaConceptos');
+        const btnEliminarTodos = document.getElementById('btnEliminarTodos');
+
+        // Cargar conceptos al iniciar la página
+        cargarConceptos();
+
+        // Función para cargar todos los conceptos
+        async function cargarConceptos() {
+            try {
+                const response = await fetch('http://localhost:3000/api/conceptos');
+                const conceptos = await response.json();
+
+                if (conceptos.length === 0) {
+                    listaDiv.innerHTML = '<p class="empty-message">No hay conceptos guardados</p>';
+                } else {
+                    mostrarConceptos(conceptos);
+                }
+            } catch (error) {
+                listaDiv.innerHTML = '<p class="error">Error al cargar conceptos</p>';
+                console.error('Error:', error);
+            }
+        }
+
+        // Función para mostrar conceptos en la interfaz
+        function mostrarConceptos(conceptos) {
+            listaDiv.innerHTML = conceptos.map(concepto => `
+                <div class="concepto-card">
+                    <div class="concepto-header">
+                        <h3>${concepto.nombre}</h3>
+                        <button class="btn-delete" onclick="eliminarConcepto(${concepto.id})">
+                            🗑️
+                        </button>
+                    </div>
+                    <p class="concepto-descripcion">${concepto.descripcion}</p>
+                    <small class="concepto-fecha">
+                        Creado: ${new Date(concepto.fechaCreacion).toLocaleString('es-AR')}
+                    </small>
+                </div>
+            `).join('');
+        }
+
+        // Función para eliminar un concepto específico
+        async function eliminarConcepto(id) {
+            if (!confirm('¿Estás seguro de eliminar este concepto?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/conceptos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('✅ Concepto eliminado');
+                    cargarConceptos(); // Recargar lista
+                } else {
+                    alert('❌ Error al eliminar');
+                }
+            } catch (error) {
+                alert('❌ Error de conexión');
+                console.error('Error:', error);
+            }
+        }
+
+        // Función para eliminar todos los conceptos
+        btnEliminarTodos.addEventListener('click', async () => {
+            if (!confirm('¿Estás seguro de eliminar TODOS los conceptos?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3000/api/conceptos', {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('✅ Todos los conceptos eliminados');
+                    cargarConceptos(); // Recargar lista
+                } else {
+                    alert('❌ Error al eliminar');
+                }
+            } catch (error) {
+                alert('❌ Error de conexión');
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

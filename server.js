@@ -1,3 +1,4 @@
+
 // server.js ACTUALIZADO
 const http = require('http');
 const fs = require('fs');
@@ -99,4 +100,5 @@ sequelize.sync().then(() => {
   });
 }).catch(error => {
   console.error('❌ Error al sincronizar el modelo:', error);
+
 });
