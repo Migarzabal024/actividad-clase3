@@ -1,0 +1,18 @@
+{
+  "name": "tp-programacion2",
+  "version": "1.0.0",
+  "description": "Trabajo Práctico - Gestión de Conceptos con Node.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "rest-api",
+    "conceptos",
+    "backend"
+  ],
+  "author": "Tu Nombre",
+  "license": "ISC"
+}
