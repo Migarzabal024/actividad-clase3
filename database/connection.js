@@ -2,7 +2,7 @@
 
 const { Sequelize } = require('sequelize');
 
-// --- ⚠️ CONFIGURA ESTO ---
+// --- CONFIGURA ESTO ---
 const DB_NAME = 'tp2_db';      // El nombre que pusiste en phpMyAdmin
 const DB_USER = 'root';        // Tu usuario de MySQL (casi siempre 'root')
 const DB_PASS = '';            // Tu contraseña de MySQL (casi siempre vacía)
