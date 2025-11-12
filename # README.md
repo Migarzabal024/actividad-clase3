@@ -114,7 +114,7 @@ Elimina un concepto específico por ID.
 - Formulario se limpia automáticamente
 
 **Captura de pantalla:**
-![Agregar concepto](screenshots/test-agregar.png)
+![Agregar concepto](imagenesTest\carga de conceptos.png)
 
 ### Caso 2: Visualizar conceptos
 
@@ -127,7 +127,7 @@ Elimina un concepto específico por ID.
 - Cada tarjeta muestra: nombre, descripción, fecha y botón eliminar
 
 **Captura de pantalla:**
-![Ver conceptos](screenshots/test-visualizar.png)
+![Ver conceptos](imagenesTest\Conceptos guardados.png)
 
 ### Caso 3: Eliminar un concepto específico
 
@@ -139,8 +139,8 @@ Elimina un concepto específico por ID.
 - Alerta de confirmación
 - Concepto desaparece de la lista
 - Mensaje: " Concepto eliminado"
-**Captura de pantalla:**
-![Eliminar concepto](screenshots/test-eliminar.png)
+**Capturas de pantalla:**
+![Eliminar concepto](imagenesTest\eliminacion parcial.png)(imagenesTest\eliminacion total de los conceptos.png)
 
 ### Caso 4: Obtener concepto por ID (API)
 

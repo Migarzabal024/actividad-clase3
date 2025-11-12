@@ -24,12 +24,27 @@ const createConcepto = async (req, res) => {
 
 // DELETE /api/conceptos/:id
 const deleteConcepto = async (req, res) => {
-    // ...la lógica del DELETE por ID...
+  try {
+    const id = req.params.id;
+    const filasEliminadas = await Concepto.destroy({ where: { id: id } });
+    if (filasEliminadas === 0) {
+      return res.status(404).json({ error: 'Concepto no encontrado' });
+    }
+    res.status(204).send(); // Eliminación exitosa, sin contenido en body
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar concepto' });
+  }
 };
 
 // DELETE /api/conceptos
 const deleteAllConceptos = async (req, res) => {
-    // ...la lógica del DELETE de todos...
+  try {
+    // Se eliminan todos los registros de la tabla Conceptos
+    await Concepto.destroy({ truncate: true }); // Borra todo y resetea IDs
+    res.status(204).send(); // Sin contenido, eliminación exitosa
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar todos los conceptos' });
+  }
 };
 
 // ... (al final de conceptoController.js)
