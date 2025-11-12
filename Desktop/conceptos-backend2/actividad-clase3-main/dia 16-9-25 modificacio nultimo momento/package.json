@@ -1,0 +1,12 @@
+{
+  "name": "dia-16-9-25-modificacio-nultimo-momento",
+  "version": "1.0.0",
+  "description": "Archivo hecho con los contenidos vistos en clase",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Martín Igarzabal, Lucas Musse",
+  "license": "ISC"
+}
