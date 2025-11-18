@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Conceptos</title>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Mi Glosario de la Materia</h1>
+    </header>
+
+    <main>
+        <section class="form-container">
+            <h2>Agregar Nuevo Concepto</h2>
+            <form id="concept-form">
+                <label for="concept-name">Concepto:</label>
+                <input type="text" id="concept-name" placeholder="Ej: DOM" required>
+                
+                <label for="concept-description">Desarrollo:</label>
+                <textarea id="concept-description" rows="4" placeholder="Ej: Document Object Model..." required></textarea>
+                
+                <button type="submit">Guardar Concepto</button>
+            </form>
+        </section>
+
+        <section class="concepts-container">
+            <h2>Conceptos Guardados</h2>
+            
+            <div class="toolbar">
+                <button id="delete-all-btn" class="delete-btn">Eliminar Todo</button>
+            </div>
+            <div id="concepts-list">
+                </div>
+        </section>
+            <script>
+// Este evento se asegura de que el código se ejecute solo cuando todo el HTML se haya cargado.
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- 1. OBTENCIÓN DE ELEMENTOS DEL DOM ---
+    const conceptForm = document.getElementById('concept-form');
+    const conceptNameInput = document.getElementById('concept-name');
+    const conceptDescriptionInput = document.getElementById('concept-description');
+    const conceptsList = document.getElementById('concepts-list');
+
+    // --- 2. FUNCIÓN PARA OBTENER Y MOSTRAR CONCEPTOS ---
+    const fetchAndDisplayConcepts = () => {
+        // Hacemos una petición GET a nuestra API en el servidor.
+        fetch('/conceptos')
+            .then(response => response.json()) // Convertimos la respuesta a formato JSON.
+            .then(data => {
+                // Limpiamos la lista antes de volver a dibujarla.
+                conceptsList.innerHTML = ''; 
+                
+                // Por cada concepto en los datos recibidos...
+                data.forEach(concepto => {
+                    // Creamos los elementos HTML dinámicamente.
+                    const conceptItem = document.createElement('div');
+                    conceptItem.classList.add('concept-item');
+                    
+                    const conceptContent = document.createElement('div');
+                    
+                    const conceptName = document.createElement('h3');
+                    conceptName.textContent = concepto.nombre;
+                    
+                    const conceptDescription = document.createElement('p');
+                    conceptDescription.textContent = concepto.descripcion;
+
+                    // --- Lógica del Botón Eliminar ---
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Eliminar';
+                    deleteButton.classList.add('delete-btn');
+
+                    deleteButton.addEventListener('click', () => {
+                        fetch(`/conceptos/${concepto.id}`, {
+                            method: 'DELETE',
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                fetchAndDisplayConcepts(); // Actualizamos la lista si se borra con éxito.
+                            }
+                        })
+                        .catch(error => console.error('Error al eliminar:', error));
+                    });
+                    // --- Fin Lógica del Botón ---
+                    
+                    // Armamos la estructura del elemento.
+                    conceptContent.appendChild(conceptName);
+                    conceptContent.appendChild(conceptDescription);
+                    conceptItem.appendChild(conceptContent);
+                    conceptItem.appendChild(deleteButton); // Añadimos el botón al item
+                    
+                    // Añadimos el nuevo elemento a la lista en el DOM.
+                    conceptsList.appendChild(conceptItem);
+                });
+            })
+            .catch(error => console.error('Error al obtener los conceptos:', error));
+    };
+
+    // --- 3. LÓGICA PARA ENVIAR EL FORMULARIO (CREAR NUEVO CONCEPTO) ---
+    conceptForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const newConcept = {
+            nombre: conceptNameInput.value,
+            descripcion: conceptDescriptionInput.value
+        };
+
+        fetch('/conceptos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newConcept),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Concepto guardado:', data);
+            conceptNameInput.value = '';
+            conceptDescriptionInput.value = '';
+
+            fetchAndDisplayConcepts(); 
+        })
+        .catch(error => console.error('Error al guardar el concepto:', error));
+    });
+
+    // --- 4. LLAMADA INICIAL PARA CARGAR LOS DATOS ---
+    // Llamamos a la función para que se ejecute al cargar la página.
+    fetchAndDisplayConcepts();
+});
+
+// ... al principio del script, donde obtenemos los otros elementos ...
+document.addEventListener('DOMContentLoaded', () => {
+    // ... (las otras constantes como conceptForm, etc. se quedan igual) ...
+    const deleteAllBtn = document.getElementById('delete-all-btn'); // ¡Nuevo!
+
+    // ... (la función fetchAndDisplayConcepts se queda igual) ...
+
+    // ... (el event listener para conceptForm.addEventListener('submit', ...) se queda igual) ...
+
+
+    // --- LÓGICA PARA EL BOTÓN DE ELIMINAR TODO (NUEVO) ---
+    deleteAllBtn.addEventListener('click', () => {
+        // Pedimos confirmación al usuario para evitar borrados accidentales
+        if (confirm('¿Estás seguro de que quieres eliminar TODOS los conceptos?')) {
+            fetch('/conceptos', {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    fetchAndDisplayConcepts(); // Si todo sale bien, refrescamos la lista (que ahora estará vacía)
+                }
+            })
+            .catch(error => console.error('Error al eliminar todo:', error));
+        }
+    });
+    // --- FIN DE LA NUEVA LÓGICA ---
+
+    fetchAndDisplayConcepts(); // La llamada inicial se queda igual
+});
+    </script>
+    </main>
+    
+    </body>
+</html>
