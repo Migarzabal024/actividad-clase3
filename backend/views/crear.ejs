@@ -1,0 +1,22 @@
+<%- include("partials/header") %>
+
+<h1>Crear Concepto</h1>
+
+<form action="/conceptos/crear" method="POST">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+    </div>
+    
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+    </div>
+
+    <button type="submit">Guardar</button>
+    <a href="/conceptos">
+        <button type="button">Cancelar</button>
+    </a>
+</form>
+
+<%- include("partials/footer") %>

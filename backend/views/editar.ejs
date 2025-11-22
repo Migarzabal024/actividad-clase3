@@ -1,0 +1,22 @@
+<%- include("partials/header") %>
+
+<h1>Editar Concepto</h1>
+
+<form action="/conceptos/editar/<%= concepto.id %>" method="POST">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= concepto.nombre %>" required>
+    </div>
+    
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" required><%= concepto.descripcion %></textarea>
+    </div>
+
+    <button type="submit">Actualizar</button>
+    <a href="/conceptos">
+        <button type="button">Cancelar</button>
+    </a>
+</form>
+
+<%- include("partials/footer") %>

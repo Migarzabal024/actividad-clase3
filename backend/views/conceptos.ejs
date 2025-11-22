@@ -1,0 +1,87 @@
+<%- include("partials/header") %>
+
+<h1>Listado de Conceptos</h1>
+
+<a href="/conceptos/crear">
+    <button>Crear nuevo concepto</button>
+</a>
+
+<% if (conceptos.length === 0) { %>
+    <p>No hay conceptos cargados.</p>
+<% } else { %>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% conceptos.forEach(c => { %>
+                <tr>
+                    <td><%= c.id %></td>
+                    <td><%= c.nombre %></td>
+                    <td><%= c.descripcion %></td>
+                    <td>
+                        <a href="/conceptos/editar/<%= c.id %>">
+                            <button type="button">Editar</button>
+                        </a>
+                        <button onclick="eliminarConcepto(c.id )" style="background:red; color:white;">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <button onclick="eliminarTodos()" style="margin-top:20px; background:darkred; color:white;">
+        BORRAR TODOS
+    </button>
+<% } %>
+
+<script>
+    async function eliminarConcepto(id) {
+        if (!confirm('¿Eliminar este concepto?')) return;
+        
+        try {
+            const response = await fetch(`/api/conceptos/${id}`, {
+                method: 'DELETE'
+            });
+            
+            if (response.ok) {
+                alert('Concepto eliminado');
+                location.reload();
+            } else {
+                alert('Error al eliminar');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al eliminar');
+        }
+    }
+
+    async function eliminarTodos() {
+        if (!confirm('¿ELIMINAR TODOS LOS CONCEPTOS? Esta acción no se puede deshacer.')) return;
+        
+        try {
+            const response = await fetch('/api/conceptos', {
+                method: 'DELETE'
+            });
+            
+            if (response.ok) {
+                alert('Todos los conceptos eliminados');
+                location.reload();
+            } else {
+                alert('Error al eliminar');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al eliminar');
+        }
+    }
+</script>
+
+<%- include("partials/footer") %>
