@@ -1,0 +1,74 @@
+.concepto-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.concepto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.concepto-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+}
+
+.concepto-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.concepto-id {
+    background: #4CAF50;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.concepto-descripcion {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    min-height: 60px;
+}
+
+.concepto-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.concepto-actions button {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.concepto-actions button:hover {
+    opacity: 0.8;
+}
+
+.btn-editar {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-eliminar {
+    background: #f44336;
+    color: white;
+}
