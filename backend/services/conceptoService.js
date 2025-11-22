@@ -1,23 +1,27 @@
-const Concepto = require('../models/Concepto');
+const Concepto = require("../models/Concepto");
 
-// Servicios de la App
 module.exports = {
-    obtenerTodos: () => Concepto.findAll(),
-
-    obtenerPorId: (id) => Concepto.findByPk(id),
-
-    crear: (data) => Concepto.create(data),
-
-    actualizar: async (id, data) => {
-        const concepto = await Concepto.findByPk(id);
-
-        return concepto.update(data);
+    obtenerTodos() {
+        return Concepto.findAll();
     },
 
-    eliminar: async (id) => {
-        const concepto = await Concepto.findByPk(id);
+    obtenerPorId(id) {
+        return Concepto.findByPk(id);
+    },
 
-        return concepto.destroy();
+    crear(datos) {
+        return Concepto.create(datos);
+    },
+
+    actualizar(id, datos) {
+        return Concepto.update(datos, { where: { id } });
+    },
+
+    eliminar(id) {
+        return Concepto.destroy({ where: { id } });
+    },
+
+    eliminarTodos() {
+        return Concepto.destroy({ where: {}, truncate: true });
     }
-
 };
