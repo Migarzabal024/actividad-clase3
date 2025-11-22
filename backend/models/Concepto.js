@@ -10,6 +10,9 @@ const Concepto = sequelize.define("Concepto", {
     nombre: {
         type: DataTypes.STRING(100),
         allowNull: false,
+        unique: {
+            msg: 'Ya existe un concepto con ese nombre'
+        },
         validate: {
             notEmpty: {
                 msg: "El nombre no puede estar vacío"
@@ -35,7 +38,9 @@ const Concepto = sequelize.define("Concepto", {
     }
 }, {
     tableName: 'conceptos',
-    timestamps: false
+    timestamps: true,
+    createdAt: 'createdAt',
+    updatedAt: false  // ← Solo desactiva updatedAt
 });
 
 module.exports = Concepto;

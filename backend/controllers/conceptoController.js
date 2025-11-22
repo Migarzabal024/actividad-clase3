@@ -77,6 +77,12 @@ module.exports = {
             const nuevo = await servicio.crear(req.body);
             res.status(201).json(nuevo);
         } catch (error) {
+            // Manejo específico para conceptos duplicados
+            if (error.name === 'SequelizeUniqueConstraintError') {
+                return res.status(409).json({ 
+                    error: "Ya existe un concepto con ese nombre" 
+                });
+            }
             console.error("Error en apiCrear:", error.message);
             res.status(500).json({ error: "Error al crear el concepto" });
         }
