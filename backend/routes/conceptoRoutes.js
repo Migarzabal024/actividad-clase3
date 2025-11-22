@@ -1,0 +1,13 @@
+// routes/conceptosRoutes.js
+const express = require('express');
+const router = express.Router();
+const controller = require("../controllers/conceptoController");
+
+// Rutas de la API
+router.get('/', controller.listar);
+router.get('/:id', controller.obtener);
+router.post('/', controller.crear);
+router.put('/:id', controller.actualizar);
+router.delete('/:id', controller.eliminar);
+
+module.exports = router;
